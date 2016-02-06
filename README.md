@@ -18,6 +18,24 @@ for phone number's, which calls
 [Google's libphonenumber](https://github.com/googlei18n/libphonenumber)
 to format numbers as you type them. 
 
+**UPDATE**: use latestest version of Nathan Hammond libphonenumber (v7.2.4) to be able to use all phoneUtils exposed methods:
+```js
+phoneUtils.countryCodeToRegionCodeMap();
+phoneUtils.isPossibleNumber(phoneNumber, regionCode);
+phoneUtils.isPossibleNumberWithReason(phoneNumber, regionCode);
+phoneUtils.isValidNumber(phoneNumber, regionCode);
+phoneUtils.isValidNumberForRegion(phoneNumber, regionCode);
+phoneUtils.getCountryCodeForRegion(regionCode);
+phoneUtils.getRegionCodeForNumber(phoneNumber, regionCode);
+phoneUtils.getNumberType(phoneNumber, regionCode);
+phoneUtils.getSupportedRegions();
+phoneUtils.formatE164(phoneNumber, regionCode);
+phoneUtils.formatNational(phoneNumber, regionCode);
+phoneUtils.formatInternational(phoneNumber, regionCode);
+phoneUtils.formatInOriginalFormat(phoneNumber, regionCode);
+phoneUtils.formatOutOfCountryCallingNumber(phoneNumber, regionCode, target);
+```
+
 View a [demo here](https://rawgit.com/cwill747/angular-libphonenumber/master/demo/index.html)
 
 ## Installation

@@ -1,7 +1,7 @@
 /**
  * angular-libphonenumber
  * Nathan Hammond's libphonenumber ported to an angular filter
- * @version v0.0.5
+ * @version v0.0.9
  * @link https://github.com/cwill747/angular-libphonenumber
  * @license Apache-2.0
  */
@@ -25,11 +25,37 @@ angular.module('cwill747.phonenumber', [])
       }
       return value.replace(/([^0-9|+])/g, '');
     }
+    function isNumeric(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+    function formatAsTyped(partialNum, regionCode) {
+      var strippedNum='';
+      for(i=0;i<partialNum.length;i++){
+        if(isNumeric(partialNum.charAt(i))) strippedNum+=partialNum.charAt(i);
+      }
+      var num=strippedNum;
+      while(!phoneUtils.isValidNumberForRegion(num, regionCode)){
+        num+='0';
+        if(i++ >= 25) break;
+      }
+      var formatedNum = phoneUtils.formatNational(num, regionCode);
+      var i=0;
+      var j=0;
+      var res ='';
+
+      while(i < strippedNum.length) {
+        res += formatedNum.charAt(j);
+        if(isNumeric(formatedNum.charAt(j))) i++;
+        j++;
+
+      }
+      return res;
+    }
 
     function applyPhoneMask(value, region) {
       var phoneMask = value;
       try {
-        phoneMask = phoneUtils.formatAsTyped(value, region);
+        phoneMask = formatAsTyped(value, region);
       }
       catch (err) {
         $log.debug(err);
